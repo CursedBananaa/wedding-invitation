@@ -14,10 +14,9 @@
   }
 
   /* ==========================================================================
-     RSVP Email Notification Setup
-     Target Email: hobbits.shrillex88@gmail.com
+     Live Wedding Guestbook & Attendance Cloud Database
      ========================================================================== */
-  const NOTIFY_EMAIL = 'hobbits.shrillex88@gmail.com';
+  const GUESTBOOK_DB_URL = 'https://api.restful-api.dev/objects/ff808181a09d98f701a1b7c104fc5f43';
 
   /* ==========================================================================
      Gallery Photos Data (6 Celebration Photos)
@@ -474,31 +473,40 @@
         timestamp: timestamp
       };
 
-      // 2. Send instant email notification to hobbits.shrillex88@gmail.com
-      const sendRequests = [
-        fetch(`https://formsubmit.co/ajax/${NOTIFY_EMAIL}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            _subject: `💍 New RSVP: ${name} (${attending === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline'})`,
-            'Guest Name': name,
-            'Attendance': attending === 'yes' ? 'Joyfully Accept' : 'Regretfully Decline',
-            'Number of Guests': guests,
-            'Heartfelt Wishes': message || '(No message provided)',
-            'Date': `${timestamp} (Cairo Time)`,
-            _template: 'table'
-          })
-        }).catch(err => console.warn('Notification error:', err))
-      ];
+      // 2. Save directly to live Cloud Database for the Guestbook website
+      const saveToCloud = async () => {
+        try {
+          const res = await fetch(GUESTBOOK_DB_URL);
+          const current = await res.json();
+          const list = (current && current.data && Array.isArray(current.data.rsvps)) ? current.data.rsvps : [];
+          
+          list.push({
+            id: 'rsvp-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+            name: name,
+            attending: attending === 'yes' || attending === 'Joyfully Accept',
+            guests: parseInt(guests, 10) || 1,
+            wish: message || '',
+            timestamp: timestamp
+          });
 
-      // Wait with a safety timeout so guests always receive confirmation
+          await fetch(GUESTBOOK_DB_URL, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: 'Karim & Nadine Wedding Live RSVPs Master Database',
+              data: { rsvps: list }
+            })
+          });
+        } catch (err) {
+          console.warn('Live guestbook cloud sync error:', err);
+        }
+      };
+
+      // Wait with a safety timeout so guests always receive smooth confirmation
       try {
         await Promise.race([
-          Promise.all(sendRequests),
-          new Promise(resolve => setTimeout(resolve, 2600))
+          saveToCloud(),
+          new Promise(resolve => setTimeout(resolve, 2500))
         ]);
       } catch (err) {}
 
