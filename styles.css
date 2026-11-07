@@ -1,0 +1,492 @@
+﻿/* ==========================================================================
+   Karim & Nadine Wedding Invitation - Master Stylesheet
+   Theme: Chateau Blue (Exact ChungDoi Replica)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Viaoda+Libre&display=swap');
+
+:root {
+  --primary-navy: #123467;
+  --deep-navy: #0c2147;
+  --royal-blue: #1a4080;
+  --soft-blue: #6f8cbf;
+  --pale-blue: #cfdcec;
+  --ice-blue: #e6eef7;
+  --gold-accent: #c5a059;
+  
+  --font-viaoda: 'Viaoda Libre', 'EB Garamond', cursive;
+  --font-alex: 'Alex Brush', 'The Nautigal', cursive;
+  --font-cormorant: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-eb: 'EB Garamond', 'Times New Roman', serif;
+  --font-baskerville: 'Baskerville', 'Libre Baskerville', 'Times New Roman', serif;
+  --font-lora: 'Lora', 'Times New Roman', serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #ffffff;
+  color: #123467;
+  font-family: var(--font-baskerville);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   1. Interactive Royal Navy Opening Envelope
+   ========================================================================== */
+#envelope-container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #0c2147, #123467, #1a4080);
+  overflow: hidden;
+  will-change: opacity, transform;
+}
+
+.ambient-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ambient-petal {
+  position: absolute;
+  top: -30px;
+  opacity: 0;
+  pointer-events: none;
+  animation: ambient-fall linear infinite;
+}
+
+@keyframes ambient-fall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  88% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(115vh) translateX(var(--sway, 25px)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.envelope-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 310px;
+}
+
+@media (min-width: 640px) {
+  .envelope-wrapper { width: 340px; }
+}
+@media (min-width: 768px) {
+  .envelope-wrapper { width: 520px; }
+}
+@media (min-width: 1024px) {
+  .envelope-wrapper { width: 600px; }
+}
+
+.wax-seal {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #123467, rgb(0, 22, 73));
+  box-shadow: 0 4px 20px rgba(18, 52, 103, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  animation: seal-pulse 2s ease-in-out infinite;
+}
+
+.wax-seal svg {
+  width: 28px;
+  height: 28px;
+  fill: #ffffff;
+}
+
+@keyframes seal-pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.06); }
+}
+
+.envelope-card {
+  position: relative;
+  border-radius: 8px;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.45),
+              0 8px 24px rgba(0, 0, 0, 0.2),
+              0 0 40px rgba(18, 52, 103, 0.15);
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(18, 52, 103, 0.15);
+  overflow: hidden;
+  text-align: center;
+  padding: 112px 24px 56px;
+}
+
+@media (min-width: 768px) {
+  .envelope-card {
+    padding: 96px 24px 32px;
+  }
+}
+
+.envelope-card-bg-left,
+.envelope-card-bg-right {
+  position: absolute;
+  top: 50%;
+  width: 64%;
+  max-width: 300px;
+  pointer-events: none;
+  opacity: 0.18;
+}
+
+@media (min-width: 768px) {
+  .envelope-card-bg-left,
+  .envelope-card-bg-right {
+    max-width: 360px;
+  }
+}
+
+.envelope-card-bg-left {
+  left: 0;
+  transform: translateY(-50%) translateX(-35%) rotate(15deg);
+}
+
+.envelope-card-bg-right {
+  right: 0;
+  transform: translateY(-50%) translateX(35%) scaleX(-1) rotate(15deg);
+}
+
+.envelope-open-btn {
+  background-color: #123467;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(18, 52, 103, 0.35);
+  font-family: var(--font-lora);
+  position: relative;
+  padding: 10px 32px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.envelope-open-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(18, 52, 103, 0.5);
+}
+
+.envelope-open-shine {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 32px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { left: -40px; }
+  40%, 100% { left: 140%; }
+}
+
+/* ==========================================================================
+   2. Sticky Music Player Button
+   ========================================================================== */
+.music-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #123467;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 24px rgba(18, 52, 103, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.music-toggle-btn:hover {
+  transform: scale(1.1);
+}
+
+.music-toggle-btn.playing {
+  animation: music-spin 8s linear infinite;
+}
+
+@keyframes music-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.music-toggle-btn svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   3. Palace & Clouds (Majestic Chateau Parallax)
+   ========================================================================== */
+.palace-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow: visible;
+}
+
+.palace-home {
+  position: relative;
+  display: block;
+  height: auto;
+  width: 560px;
+  max-width: none;
+  object-fit: contain;
+  z-index: 10;
+  will-change: transform;
+}
+
+@media (min-width: 768px) {
+  .palace-home {
+    width: 1200px;
+  }
+}
+
+.palace-cloud {
+  pointer-events: none;
+  position: absolute;
+  object-fit: contain;
+  max-width: none;
+  will-change: transform;
+}
+
+.palace-cloud.cloud-1 {
+  top: -50%;
+  right: -28%;
+  width: 100%;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.palace-cloud.cloud-2 {
+  top: 5%;
+  left: -5%;
+  width: 90%;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.palace-cloud.cloud-3 {
+  top: -35%;
+  left: 2%;
+  width: 100%;
+  z-index: 0;
+  opacity: 0.7;
+}
+
+/* ==========================================================================
+   4. Photo Gallery & 3D Coverflow Deck
+   ========================================================================== */
+.gallery-coverflow-card {
+  position: absolute;
+  height: 92%;
+  aspect-ratio: 2 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(18, 52, 103, 0.25);
+  cursor: pointer;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  user-select: none;
+}
+
+.gallery-coverflow-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.gallery-coverflow-card.active-card {
+  box-shadow: 0 20px 50px rgba(18, 52, 103, 0.4);
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: -2px;
+}
+
+/* Gallery Nav Arrows */
+.gallery-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(18, 52, 103, 0.15);
+  color: #123467;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.gallery-nav-arrow:hover {
+  transform: translateY(-50%) scale(1.1);
+  background: #ffffff;
+}
+
+.gallery-nav-arrow.prev { left: 8px; }
+.gallery-nav-arrow.next { right: 8px; }
+
+/* Dots */
+.gallery-dot-btn {
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  background-color: #123467;
+  transition: all 0.3s ease;
+}
+
+.gallery-dot-btn.active {
+  width: 24px;
+  height: 8px;
+  opacity: 0.7;
+}
+
+.gallery-dot-btn.inactive {
+  width: 8px;
+  height: 8px;
+  opacity: 0.25;
+}
+
+.gallery-dot-btn.inactive:hover {
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   5. Countdown & Framed Calendar
+   ========================================================================== */
+.countdown-box {
+  background: rgba(18, 52, 103, 0.05);
+  border: 1px solid rgba(18, 52, 103, 0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+  min-width: 66px;
+  text-align: center;
+}
+
+.countdown-number {
+  font-family: var(--font-baskerville);
+  font-size: clamp(20px, 5vw, 26px);
+  font-weight: 700;
+  color: #123467;
+  line-height: 1;
+}
+
+.countdown-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(18, 52, 103, 0.7);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   6. Lightbox & RSVP Modals
+   ========================================================================== */
+.lightbox-dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 12px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-dialog.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rsvp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(12, 33, 71, 0.85);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.rsvp-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.rsvp-modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(18, 52, 103, 0.15);
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.rsvp-modal-overlay.open .rsvp-modal-card {
+  transform: translateY(0) scale(1);
+}
