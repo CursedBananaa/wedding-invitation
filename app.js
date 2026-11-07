@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Karim & Nadine - Wedding Celebration Application
  * Built with React 18 & GSAP (GreenSock Animation Platform) + ScrollTrigger
  * Thursday, December 10, 2026 - Qasr Ras El Teen, Alexandria
@@ -583,7 +583,13 @@
             ),
             h('div', { className: 'flex items-center justify-center gap-3 mb-2' },
               h('div', { style: { background: 'linear-gradient(to right, transparent, #123467)', width: '40px', height: '1px' } }),
-              h('span', { style: { color: '#123467', opacity: 0.7, fontSize: '13px' } }, 'â—†'),
+              h('svg', {
+                viewBox: '0 0 24 24',
+                fill: '#123467',
+                style: { width: '10px', height: '10px', opacity: 0.7 }
+              },
+                h('polygon', { points: '12,2 22,12 12,22 2,12' })
+              ),
               h('div', { style: { background: 'linear-gradient(to left, transparent, #123467)', width: '40px', height: '1px' } })
             ),
             h('div', {
@@ -756,13 +762,13 @@
                         className: 'gallery-nav-arrow prev hidden md:flex',
                         onClick: handlePrevCard,
                         'aria-label': 'Previous photo'
-                      }, 'â®'),
+                      }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '16px', height: '16px' } }, h('polyline', { points: '15 18 9 12 15 6' }))),
                       h('button', {
                         type: 'button',
                         className: 'gallery-nav-arrow next hidden md:flex',
                         onClick: handleNextCard,
                         'aria-label': 'Next photo'
-                      }, 'â¯'),
+                      }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '16px', height: '16px' } }, h('polyline', { points: '9 18 15 12 9 6' }))),
                       // 3D Card Deck
                       h('div', {
                         className: 'relative w-full h-full flex items-center justify-center',
@@ -962,7 +968,7 @@
                   target: '_blank',
                   rel: 'noopener noreferrer',
                   className: 'inline-flex items-center gap-1.5 text-xs text-[#123467] bg-[#12346710] hover:bg-[#12346720] px-4 py-2 rounded-full font-medium transition-colors'
-                }, 'ðŸ“ View on Google Maps')
+                }, h('svg', { viewBox: '0 0 24 24', fill: 'currentColor', style: { width: '14px', height: '14px', flexShrink: 0 } }, h('path', { d: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z' })), h('span', null, 'View on Google Maps'))
               )
             )
           ),
@@ -1006,24 +1012,24 @@
             `${lightboxIndex + 1} / ${GALLERY_PHOTOS.length}`
           ),
           h('button', {
-            className: 'lightbox-close-btn text-white text-2xl font-bold bg-white/20 hover:bg-white/30 rounded-full w-9 h-9 flex items-center justify-center',
+            className: 'lightbox-close-btn text-white bg-white/20 hover:bg-white/30 rounded-full w-9 h-9 flex items-center justify-center transition-colors',
             onClick: () => setLightboxIndex(null)
-          }, 'Ã—')
+          }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '18px', height: '18px' } }, h('line', { x1: '18', y1: '6', x2: '6', y2: '18' }), h('line', { x1: '6', y1: '6', x2: '18', y2: '18' })))
         ),
         h('div', { className: 'relative flex-1 w-full max-w-4xl flex items-center justify-center px-4 min-h-0' },
           h('button', {
-            className: 'absolute left-2 text-white text-3xl bg-black/40 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center z-20',
+            className: 'absolute left-2 text-white bg-black/40 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center z-20 transition-colors',
             onClick: () => setLightboxIndex((lightboxIndex - 1 + GALLERY_PHOTOS.length) % GALLERY_PHOTOS.length)
-          }, 'â®'),
+          }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '20px', height: '20px' } }, h('polyline', { points: '15 18 9 12 15 6' }))),
           h('img', {
             src: GALLERY_PHOTOS[lightboxIndex].url,
             alt: 'Expanded',
             className: 'max-h-full max-w-full rounded-xl object-contain shadow-2xl'
           }),
           h('button', {
-            className: 'absolute right-2 text-white text-3xl bg-black/40 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center z-20',
+            className: 'absolute right-2 text-white bg-black/40 hover:bg-black/70 rounded-full w-10 h-10 flex items-center justify-center z-20 transition-colors',
             onClick: () => setLightboxIndex((lightboxIndex + 1) % GALLERY_PHOTOS.length)
-          }, 'â¯')
+          }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '20px', height: '20px' } }, h('polyline', { points: '9 18 15 12 9 6' })))
         ),
         // Thumbnails Strip
         h('div', { className: 'flex gap-2 overflow-x-auto p-2 bg-black/40 rounded-lg max-w-[90vw]' },
@@ -1050,7 +1056,7 @@
           h('button', {
             className: 'absolute top-4 right-4 text-2xl text-[#123467] hover:opacity-70 bg-transparent border-0 cursor-pointer',
             onClick: () => setIsRsvpOpen(false)
-          }, 'Ã—'),
+          }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '18px', height: '18px' } }, h('line', { x1: '18', y1: '6', x2: '6', y2: '18' }), h('line', { x1: '6', y1: '6', x2: '18', y2: '18' }))),
           h('h3', {
             className: 'text-2xl font-bold text-center mb-1',
             style: { color: '#123467', fontFamily: 'var(--font-cormorant)' }
@@ -1123,7 +1129,7 @@
               isSubmittingRsvp ? 'Confirming Attendance...' : 'Send Confirmation'
             )
           ) : h('div', { className: 'text-center py-6' },
-            h('div', { className: 'text-4xl text-green-600 mb-3' }, 'âœ“'),
+            h('div', { className: 'w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center mb-3 shadow-sm' }, h('svg', { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '2.5', strokeLinecap: 'round', strokeLinejoin: 'round', style: { width: '28px', height: '28px' } }, h('path', { d: 'M5 13l4 4L19 7' }))),
             h('h4', { className: 'text-xl font-bold text-[#123467] mb-2' }, 'Thank You!'),
             h('p', { className: 'text-sm text-gray-600' }, 'Your RSVP has been confirmed. We look forward to seeing you on December 10, 2026!')
           )
